@@ -16,7 +16,7 @@ interface Product {
 @Component({
   templateUrl: './element-page.component.html',
   //providers: [ MessageService, ConfirmationService ],
-  styleUrls: ['../../../../assets/demo/badges.scss'] ,
+  styleUrls: ['./element-page.component.scss'] ,
 })
 export class ElementPageComponent implements OnInit {
 
