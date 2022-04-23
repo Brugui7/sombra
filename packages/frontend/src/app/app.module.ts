@@ -16,27 +16,33 @@ import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { MonitoringPageComponent } from './features/monitoring/monitoring-page/monitoring-page/monitoring-page.component';
+import { ChartModule } from 'primeng/chart';
+import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        FormsModule,
-        AppRoutingModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        DialogModule,
-        //ToastModule,
-        ToolbarModule,
-        FileUploadModule,
-        TableModule,
-        RatingModule,
-        DropdownModule,
-        RadioButtonModule,
-        InputNumberModule,
-    ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    DialogModule,
+    //ToastModule,
+    ToolbarModule,
+    FileUploadModule,
+    TableModule,
+    RatingModule,
+    DropdownModule,
+    RadioButtonModule,
+    InputNumberModule,
+    ChartModule,
+    MenubarModule,
+  ],
     declarations: [
         AppComponent,
-        ElementPageComponent
+        ElementPageComponent,
+        MonitoringPageComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
