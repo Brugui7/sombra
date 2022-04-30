@@ -19,6 +19,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { MonitoringPageComponent } from './features/monitoring/monitoring-page/monitoring-page/monitoring-page.component';
 import { ChartModule } from 'primeng/chart';
 import { MenubarModule } from 'primeng/menubar';
+import { SensorsDialogComponent } from './features/elements/sensors/sensors-dialog/sensors-dialog.component';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { MenubarModule } from 'primeng/menubar';
     declarations: [
         AppComponent,
         ElementPageComponent,
-        MonitoringPageComponent
+        MonitoringPageComponent,
+        SensorsDialogComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

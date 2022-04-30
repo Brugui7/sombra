@@ -22,6 +22,7 @@ interface Product {
 export class ElementPageComponent implements OnInit {
   public elements: Element[] = [];
   public element?: Element;
+  public sensorsDialog = false;
   productDialog: boolean = false;
   deleteProductDialog: boolean = false;
   deleteProductsDialog: boolean = false;

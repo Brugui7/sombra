@@ -19,7 +19,7 @@
         </ng-template>
       </p-toolbar>
 
-      <p-table #dt [value]="elements" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+      <p-table #dt [value]="elements" [columns]="cols" responsiveLayout="scroll"
                [globalFilterFields]="['name']" [rows]="10" [paginator]="true"
                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -39,6 +39,7 @@
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
+            <th></th>
             <th style="width: 3rem">
               <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
@@ -51,11 +52,26 @@
             <th pSortableColumn="description">Description
               <p-sortIcon field="description"></p-sortIcon>
             </th>
-            <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-element>
           <tr>
+            <td>
+              <div class="flex">
+                <button pButton pRipple icon="pi pi-pencil"
+                        class="p-button-rounded p-button-success mr-2"
+                        (click)="editElement(element)"
+                ></button>
+                <button pButton pRipple icon="pi pi-trash"
+                        class="p-button-rounded p-button-warning mr-2"
+                        (click)="deleteElement(element)"
+                ></button>
+                <button pButton pRipple icon="pi pi-wifi"
+                        class="p-button-rounded p-button-primary"
+                        (click)="this.sensorsDialog = true"
+                ></button>
+              </div>
+            </td>
             <td>
               <p-tableCheckbox [value]="element"></p-tableCheckbox>
             </td>
@@ -70,21 +86,12 @@
               <span class="p-column-title">Description</span>
               {{element.description}}
             </td>
-            <td>
-              <div class="flex">
-                <button pButton pRipple icon="pi pi-pencil"
-                        class="p-button-rounded p-button-success mr-2"
-                        (click)="editElement(element)"></button>
-                <button pButton pRipple icon="pi pi-trash"
-                        class="p-button-rounded p-button-warning"
-                        (click)="deleteElement(element)"></button>
-              </div>
-            </td>
           </tr>
         </ng-template>
       </p-table>
     </div>
 
+    <!-- Element dialog -->
     <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Element Details"
               [modal]="true" class="p-fluid">
       <ng-template pTemplate="content" *ngIf="product">
@@ -110,6 +117,7 @@
       </ng-template>
     </p-dialog>
 
+    <!-- Delete dialog -->
     <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true"
               [style]="{width:'450px'}">
       <div class="flex align-items-center justify-content-center">
@@ -124,6 +132,7 @@
       </ng-template>
     </p-dialog>
 
+    <!-- Delete multiple dialog -->
     <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true"
               [style]="{width:'450px'}">
       <div class="flex align-items-center justify-content-center">
@@ -137,5 +146,11 @@
                 (click)="confirmDeleteSelected()"></button>
       </ng-template>
     </p-dialog>
+
+    <!-- Sensor dialog -->
+    <p-dialog [(visible)]="sensorsDialog" header="Sensors" [modal]="true">
+      <app-sensors-dialog></app-sensors-dialog>
+    </p-dialog>
+
   </div>
 </div>
