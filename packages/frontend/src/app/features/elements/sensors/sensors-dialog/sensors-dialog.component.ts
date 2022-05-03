@@ -17,10 +17,10 @@ export class SensorsDialogComponent implements OnInit {
   ];
 
   public sensors: Sensor[] = [
-    {id: 1, name: 'Patata', code: 'pat', description: 'Un sensor', measure_unit: 'cm2'},
-    {id: 2, name: 'asdasd', code: 'paat', description: 'Un sensor', measure_unit: 'cm2'},
-    {id: 3, name: 'Paasdastata', code: 'paaaat', description: 'Un sensor', measure_unit: 'cm2'},
-    {id: 4, name: 'Pataasdasdta', code: 'paaaat', description: 'Un sensor', measure_unit: 'cm2'},
+    {id: 1, name: 'Velocidad de inyeccion', code: 'VH1', description: 'Velocidad de inyección', measure_unit: 'm/s'},
+    {id: 2, name: 'Tiempo de inyeccion', code: 'TH1', description: '', measure_unit: 's'},
+    {id: 3, name: 'Velocidad del husillo', code: 'VH2', description: '', measure_unit: 'm/s'},
+    {id: 4, name: 'Temperatura del material', code: 'TM1', description: 'Temperatura del material', measure_unit: 'celsius'},
   ];
   public sensor?: Sensor;
   public deleteSensorDialog = false;
