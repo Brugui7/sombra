@@ -21,7 +21,7 @@ class CreateRolesTable extends Migration
 
         Schema::disableForeignKeyConstraints();
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('role_id')->constrained();
+            $table->foreignId('role_id')->nullable()->constrained();
         });
         Schema::enableForeignKeyConstraints();
 

@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Sensor extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'element_id',
+        'code',
+        'description',
+        'measure_unit'
+    ];
 }

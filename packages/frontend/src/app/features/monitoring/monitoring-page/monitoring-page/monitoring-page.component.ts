@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { LogsService } from 'src/app/core/logs/services/logs.service';
+import { map, pluck } from 'rxjs';
+import { Log } from 'src/app/core/logs/models/log.model';
 
+// TODO: Element Selection
 @Component({
   selector: 'app-monitoring-page',
   templateUrl: './monitoring-page.component.html',
@@ -7,7 +11,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MonitoringPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private logsService: LogsService
+  ) { }
   public basicData: any = {};
   public barData: any;
   public pieData: any;
@@ -15,8 +21,46 @@ export class MonitoringPageComponent implements OnInit {
   public radarData: any;
 
   ngOnInit(): void {
+    // TODO: move to "set up graph"
+    this.logsService.getAllLogs().pipe(
+      pluck('data'),
+      map((data) => {
+        const sensorsMapped: any = {};
+        data.forEach((report) => {
+          const reportData = JSON.parse(report.data) as Log[];
+          reportData.forEach(log => {
+            if (!sensorsMapped[log.sensor_code]) {
+              sensorsMapped[log.sensor_code] = {
+                labels: [],
+                datasets: [
+                  {
+                    label: log.sensor_code,
+                    data: [],
+                    fill: false,
+                    borderColor: '#42A5F5',
+                    tension: .4
+                  }
+                ],
+              }
+            }
+
+            // TODO: Handle datetime orders
+            sensorsMapped[log.sensor_code].datasets[0].data.push(log.value);
+            sensorsMapped[log.sensor_code].labels.push(
+              new Date(log.datetime).toLocaleTimeString()
+            );
+          });
+        });
+        return sensorsMapped;
+      })
+    ).subscribe(data => {
+      // TODO Handle dynamic types of sensors
+      this.basicData = data['4E4D3549-2E91-46F8-82D8-7E73D5C19252'];
+    });
+
+
     this.basicData = {
-      labels: ['10:00', '10:01', '10:02', '10:03', '10:04', '10:05', '10:06'],
+      labels: ['10:00', '10:01', '10:02', '10:03', '10:04', '10:05', '10:06', '10:07'],
       datasets: [
         {
           label: 'Temperature vh1',
