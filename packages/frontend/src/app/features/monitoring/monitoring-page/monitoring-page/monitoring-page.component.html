@@ -1,37 +1,28 @@
+<!--
 <h1>Máquina de Inyección en Plástico</h1>
 <h3>Mostrando sensores de los últimos 6 minutos</h3>
+-->
+
+<div>
+  <p-autoComplete
+    placeholder="Seleccione el elemento"
+    [(ngModel)]="selectedElement"
+    (completeMethod)="filterElements($event)"
+    field="name"
+    [dropdown]="true"
+    [suggestions]="filteredElements"
+  >
+  </p-autoComplete>
+
+</div>
+
+
 
 <div class="grid p-fluid">
-  <div class="col-12 lg:col-6">
+  <div class="col-12 lg:col-6" *ngFor="let data of graphsData">
     <div class="card">
       <h5>Temperature</h5>
-      <p-chart type="line" [data]="basicData"  [style]="{'width': '50%'}"></p-chart>
-    </div>
-
-    <div class="card flex flex-column align-items-center">
-      <h5 class="text-left w-full">Status</h5>
-      <p-chart type="pie" [data]="pieData"  [style]="{'width': '50%'}"></p-chart>
-    </div>
-
-    <div class="card flex flex-column align-items-center">
-      <h5 class="text-left w-full">Status</h5>
-      <p-chart type="polarArea" [data]="polarData"  [style]="{'width': '50%'}"></p-chart>
-    </div>
-  </div>
-  <div class="col-12 lg:col-6">
-    <div class="card">
-      <h5>Humidity</h5>
-      <p-chart type="bar" [data]="barData" ></p-chart>
-    </div>
-
-    <div class="card flex flex-column align-items-center">
-      <h5 class="text-left w-full">Function</h5>
-      <p-chart type="doughnut" [data]="pieData"  [style]="{'width': '50%'}"></p-chart>
-    </div>
-
-    <div class="card flex flex-column align-items-center">
-      <h5 class="text-left w-full">Pressure</h5>
-      <p-chart type="radar" [data]="radarData"  [style]="{'width': '50%'}"></p-chart>
+      <p-chart type="line" [data]="data"  [style]="{'width': '50%'}"></p-chart>
     </div>
   </div>
 </div>

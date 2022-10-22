@@ -20,6 +20,7 @@ import { MonitoringPageComponent } from './features/monitoring/monitoring-page/m
 import { ChartModule } from 'primeng/chart';
 import { MenubarModule } from 'primeng/menubar';
 import { SensorsDialogComponent } from './features/elements/sensors/sensors-dialog/sensors-dialog.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { SensorsDialogComponent } from './features/elements/sensors/sensors-dial
     InputNumberModule,
     ChartModule,
     MenubarModule,
+    AutoCompleteModule,
   ],
     declarations: [
         AppComponent,

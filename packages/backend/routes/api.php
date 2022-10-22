@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SensorController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/elements', [ElementController::class, 'get']);
+Route::get('/sensors', [SensorController::class, 'get']);
 Route::get('/roles', [RoleController::class, 'index']);
 Route::get('/users/{id}/role', [UserController::class, 'getRole']);
 

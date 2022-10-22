@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElementsService } from 'src/app/core/elements/elements.service';
+import { Element } from 'src/app/core/elements/models/element.model';
 
 interface Product {
   id?: string;

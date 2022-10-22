@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Sensor } from 'src/app/core/elements/models/sensor.model';
+import { Sensor } from 'src/app/core/sensors/models/sensor.model';
 
 @Component({
   selector: 'app-sensors-dialog',
