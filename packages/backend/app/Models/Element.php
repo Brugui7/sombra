@@ -13,7 +13,11 @@ class Element extends Model
     use HasFactory;
 
     protected $fillable = [
-    	'name',
-      'description'
-		];
+        'name',
+        'description'
+    ];
+
+    public function logs() {
+        return $this->hasMany(Log::class);
+    }
 }

@@ -62,7 +62,7 @@ class LogSeeder extends Seeder
                                 "value": 16,
                                 "datetime": 1661254078632
                             }
-                        ]', true), JSON_THROW_ON_ERROR),
+                        ]', true, 512, JSON_THROW_ON_ERROR), JSON_THROW_ON_ERROR),
             'element_id' => '1',
         ]);
         DB::table('logs')->insert([
@@ -79,7 +79,7 @@ class LogSeeder extends Seeder
                                 "value": 107,
                                 "datetime": 1661254079632
                             }
-                        ]', true), JSON_THROW_ON_ERROR),
+                        ]', true, 512, JSON_THROW_ON_ERROR), JSON_THROW_ON_ERROR),
             'element_id' => '1',
         ]);
     }

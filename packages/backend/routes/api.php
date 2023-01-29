@@ -28,6 +28,12 @@ Route::get('/sensors', [SensorController::class, 'get']);
 Route::get('/roles', [RoleController::class, 'index']);
 Route::get('/users/{id}/role', [UserController::class, 'getRole']);
 
+Route::prefix('logs')->controller(LogController::class)->group(function () {
+    Route::post('', 'store');
+    // Just for testing purposes
+    Route::get('', 'index');
+});
 
-// Just for testing purposes
-Route::get('/logs/', [LogController::class, 'index']);
+
+
+
