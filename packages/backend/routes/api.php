@@ -23,7 +23,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/elements', [ElementController::class, 'get']);
+Route::prefix('elements')->controller(ElementController::class)->group(function () {
+    Route::get('', 'get');
+    Route::post('', 'store');
+    Route::put('/{id}', 'update');
+    Route::get('/{id}', 'getById');
+    Route::get('/{id}/logs', 'getElementLogs');
+});
+
+
+
 Route::get('/sensors', [SensorController::class, 'get']);
 Route::get('/roles', [RoleController::class, 'index']);
 Route::get('/users/{id}/role', [UserController::class, 'getRole']);

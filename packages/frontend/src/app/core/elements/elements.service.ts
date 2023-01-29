@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { elementAt, Observable } from 'rxjs';
 import { JsonPaginatedResource } from '../base/json-resource.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { Element } from 'src/app/core/elements/models/element.model';
+import { JsonApiResponse } from 'src/app/core/base/json-api-response.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ElementsService {
-  private endpoint = 'elements';
+  private endpoint = `${environment.apiUrl}elements`;
   constructor(
     private http: HttpClient
   ) {
@@ -18,7 +19,21 @@ export class ElementsService {
 
   public getElements(): Observable<JsonPaginatedResource<Element>> {
     return this.http.get<JsonPaginatedResource<Element>>(
-      environment.apiUrl + this.endpoint
+      this.endpoint
+    );
+  }
+
+  public create(element: Element): Observable<JsonApiResponse<Element>> {
+    return this.http.post<JsonApiResponse<Element>>(
+      this.endpoint,
+      element
+    );
+  }
+
+  public update(element: Element): Observable<JsonApiResponse<Element>> {
+    return this.http.put<JsonApiResponse<Element>>(
+      `${this.endpoint}/${element.id}`,
+      element
     );
   }
 

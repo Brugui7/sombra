@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -21,6 +21,9 @@ import { ChartModule } from 'primeng/chart';
 import { MenubarModule } from 'primeng/menubar';
 import { SensorsDialogComponent } from './features/elements/sensors/sensors-dialog/sensors-dialog.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { RippleModule } from 'primeng/ripple';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   imports: [
@@ -41,6 +44,10 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     ChartModule,
     MenubarModule,
     AutoCompleteModule,
+    RippleModule,
+    InputTextModule,
+    InputTextareaModule,
+    ReactiveFormsModule,
   ],
     declarations: [
         AppComponent,

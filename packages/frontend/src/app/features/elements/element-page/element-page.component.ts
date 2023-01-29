@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ElementsService } from 'src/app/core/elements/elements.service';
 import { Element } from 'src/app/core/elements/models/element.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 interface Product {
   id?: string;
@@ -18,13 +19,18 @@ interface Product {
 @Component({
   templateUrl: './element-page.component.html',
   //providers: [ MessageService, ConfirmationService ],
-  styleUrls: ['./element-page.component.scss'] ,
+  styleUrls: [ './element-page.component.scss' ],
 })
 export class ElementPageComponent implements OnInit {
   public elements: Element[] = [];
   public element?: Element;
   public sensorsDialog = false;
-  productDialog: boolean = false;
+  public elementForm = new FormGroup({
+    id: new FormControl(),
+    name: new FormControl(null, [Validators.required]),
+    description: new FormControl(null, [Validators.required])
+  })
+  elementDialog: boolean = false;
   deleteProductDialog: boolean = false;
   deleteProductsDialog: boolean = false;
   products: Product[] = [];
@@ -39,51 +45,12 @@ export class ElementPageComponent implements OnInit {
   rowsPerPageOptions = [ 5, 10, 20 ];
 
   constructor(
-    private elementsService: ElementsService
+    private elementsService: ElementsService,
   ) {}
 
   ngOnInit() {
-    this.elementsService.getElements().subscribe(response => {
-      this.elements = response.data;
-    });
-    this.products = [
-      {
-        "id": "1027",
-        "code": "acvx872gc",
-        "name": "Yellow Earbuds",
-        "description": "Product Description",
-        "image": "yellow-earbuds.jpg",
-        "price": 89,
-        "category": "Electronics",
-        "quantity": 35,
-        "inventoryStatus": "INSTOCK",
-        "rating": 3
-      },
-      {
-        "id": "1028",
-        "code": "tx125ck42",
-        "name": "Yoga Mat",
-        "description": "Product Description",
-        "image": "yoga-mat.jpg",
-        "price": 20,
-        "category": "Fitness",
-        "quantity": 15,
-        "inventoryStatus": "INSTOCK",
-        "rating": 5
-      },
-      {
-        "id": "1029",
-        "code": "gwuby345v",
-        "name": "Yoga Set",
-        "description": "Product Description",
-        "image": "yoga-set.jpg",
-        "price": 20,
-        "category": "Fitness",
-        "quantity": 25,
-        "inventoryStatus": "INSTOCK",
-        "rating": 8
-      }
-    ];
+    this.retrieveElements();
+    this.products = [ ];
 
     this.cols = [
       {field: 'name', header: 'Name'},
@@ -94,24 +61,30 @@ export class ElementPageComponent implements OnInit {
     ];
   }
 
+  private retrieveElements(): void {
+    this.elementsService.getElements().subscribe(response => {
+      this.elements = response.data;
+    });
+  }
+
   openNew() {
-    this.product = {};
     this.submitted = false;
-    this.productDialog = true;
+    this.elementForm.reset();
+    this.elementDialog = true;
   }
 
   deleteSelectedProducts() {
     this.deleteProductsDialog = true;
   }
 
-  editElement(product: Element) {
-    this.product = {...product};
-    this.productDialog = true;
+  editElement(element: Element) {
+    const {id, name, description} = element;
+    this.elementForm.setValue({id, name, description});
+    this.elementDialog = true;
   }
 
   deleteElement(product: Element) {
     this.deleteProductDialog = true;
-    this.product = {...product};
   }
 
   confirmDeleteSelected() {
@@ -139,12 +112,22 @@ export class ElementPageComponent implements OnInit {
   }
 
   hideDialog() {
-    this.productDialog = false;
+    this.elementDialog = false;
     this.submitted = false;
   }
 
-  saveProduct() {
+  saveElement() {
     this.submitted = true;
-    console.log(this.element);
+    let request =  this.elementsService.create(this.elementForm.value)
+    if (this.elementForm.value.id) {
+      request = this.elementsService.update(this.elementForm.value)
+    }
+
+    request.subscribe(response => {
+      console.log(response);
+      this.retrieveElements();
+      this.hideDialog();
+    });
+
   }
 }
