@@ -19,10 +19,10 @@
 
 
 <div class="grid p-fluid">
-  <div class="col-12 lg:col-6" *ngFor="let data of graphsData">
+  <p-card class="col-12 lg:col-6" *ngFor="let data of graphsData">
     <div class="card">
       <h5>Temperature</h5>
       <p-chart type="line" [data]="data"  [style]="{'width': '50%'}"></p-chart>
     </div>
-  </div>
+  </p-card>
 </div>

@@ -24,6 +24,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     InputTextModule,
     InputTextareaModule,
     ReactiveFormsModule,
+    CardModule,
   ],
     declarations: [
         AppComponent,
