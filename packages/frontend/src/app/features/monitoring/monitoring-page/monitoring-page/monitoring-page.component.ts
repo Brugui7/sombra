@@ -26,6 +26,7 @@ export class MonitoringPageComponent implements OnInit {
   public selectedElement?: Element;
   public graphsData: any[] = [];
   public sensors: Sensor[] = [];
+  public loading: boolean = false;
 
   ngOnInit(): void {
     this.elementsService.getElements().subscribe(response => {
@@ -34,7 +35,6 @@ export class MonitoringPageComponent implements OnInit {
     this.sensorsService.getSensors().subscribe(response => {
       this.sensors = response.data;
     });
-    this.setUpGraphs();
   }
 
   public filterElements(event: any) {
@@ -45,11 +45,13 @@ export class MonitoringPageComponent implements OnInit {
     console.log(this.filteredElements);
   }
 
-  private setUpGraphs(): void {
-    this.logsService.getAllLogs().pipe(
+  public setUpGraphs(element: Element): void {
+    this.loading = true;
+    this.logsService.getElementLogs(element).pipe(
       pluck('data'),
       map((data) => {
         const sensorsMapped: any = {};
+
         data.forEach((report) => {
           const reportData = JSON.parse(report.data) as Log[];
           reportData.forEach(log => {
@@ -57,6 +59,8 @@ export class MonitoringPageComponent implements OnInit {
 
             if (!sensorsMapped[log.sensor_code]) {
               sensorsMapped[log.sensor_code] = {
+                type: log.sensor_type === 'temp' ? 'line' : 'bar',
+                name: sensor ? sensor.name : log.sensor_code,
                 labels: [],
                 datasets: [
                   {
@@ -64,6 +68,7 @@ export class MonitoringPageComponent implements OnInit {
                     data: [],
                     fill: false,
                     borderColor: '#42A5F5',
+                    backgroundColor: '#78909C',
                     tension: .4
                   }
                 ],
@@ -77,10 +82,12 @@ export class MonitoringPageComponent implements OnInit {
             );
           });
         });
+
         return sensorsMapped;
       })
     ).subscribe((data: any[]) => {
       this.graphsData = Object.values(data);
+      this.loading = false;
     });
   }
 

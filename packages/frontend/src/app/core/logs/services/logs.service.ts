@@ -4,6 +4,7 @@ import { JsonPaginatedResource } from 'src/app/core/base/json-resource.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { LogResponse } from 'src/app/core/logs/models/log.model';
+import { Element } from 'src/app/core/elements/models/element.model';
 
 @Injectable({
   providedIn: 'root',

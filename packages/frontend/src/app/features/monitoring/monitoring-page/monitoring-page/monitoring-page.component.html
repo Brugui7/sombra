@@ -2,27 +2,31 @@
 <h1>Máquina de Inyección en Plástico</h1>
 <h3>Mostrando sensores de los últimos 6 minutos</h3>
 -->
-
 <div>
-  <p-autoComplete
-    placeholder="Seleccione el elemento"
-    [(ngModel)]="selectedElement"
-    (completeMethod)="filterElements($event)"
-    field="name"
-    [dropdown]="true"
-    [suggestions]="filteredElements"
-  >
-  </p-autoComplete>
+  <div>
+    <p-autoComplete
+      placeholder="Seleccione el elemento"
+      [(ngModel)]="selectedElement"
+      (completeMethod)="filterElements($event)"
+      field="name"
+      [dropdown]="true"
+      [suggestions]="filteredElements"
+    >
+    </p-autoComplete>
+    <p-button
+      *ngIf="selectedElement"
+      label="Search"
+      icon="pi pi-search"
+      [loading]="loading"
+      (onClick)="setUpGraphs(selectedElement)"
+    ></p-button>
+  </div>
 
-</div>
 
-
-
-<div class="grid p-fluid">
-  <p-card class="col-12 lg:col-6" *ngFor="let data of graphsData">
-    <div class="card">
-      <h5>Temperature</h5>
-      <p-chart type="line" [data]="data"  [style]="{'width': '50%'}"></p-chart>
-    </div>
-  </p-card>
+  <div class="grid p-fluid">
+    <p-card class="col-12 lg:col-6" *ngFor="let data of graphsData">
+      <h5>{{ data.name | uppercase }}</h5>
+      <p-chart [type]="data.type" [data]="data" [style]="{'width': '50%'}"></p-chart>
+    </p-card>
+  </div>
 </div>
