@@ -29,11 +29,15 @@ Route::prefix('elements')->controller(ElementController::class)->group(function 
     Route::put('/{id}', 'update');
     Route::get('/{id}', 'getById');
     Route::get('/{id}/logs', 'getElementLogs');
+    Route::get('/{id}/sensors', 'getElementSensors');
 });
 
+Route::prefix('sensors')->controller(SensorController::class)->group(function () {
+    Route::get('', 'get');
+    Route::post('', 'store');
+    Route::delete('/{id}', 'destroy');
+});
 
-
-Route::get('/sensors', [SensorController::class, 'get']);
 Route::get('/roles', [RoleController::class, 'index']);
 Route::get('/users/{id}/role', [UserController::class, 'getRole']);
 

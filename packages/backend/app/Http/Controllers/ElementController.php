@@ -46,12 +46,7 @@ class ElementController extends Controller
             );
             return $this->sendJsonResponse(true, 'Element created successfully', null, 201);
         } catch (\Exception $e) {
-            return $this->sendJsonResponse(
-                false,
-                'An error occurred, please try again later',
-                $e->getMessage(),
-                500
-            );
+            return $this->sendJson500Response($e);
         }
     }
 
@@ -71,12 +66,26 @@ class ElementController extends Controller
             );
             return $this->sendJsonResponse(true, 'Element updated successfully', null, 201);
         } catch (\Exception $e) {
+            return $this->sendJson500Response($e);
+        }
+    }
+
+    public function getElementSensors(Request $request, $id) {
+        $element = Element::find($id);
+
+        if (!$element) {
+            return response(null, 404);
+        }
+
+        try {
             return $this->sendJsonResponse(
-                false,
-                'An error occurred, please try again later',
-                $e->getMessage(),
-                500
+                true,
+                'Sensors retrieved successfully',
+                $element->sensors,
+                201
             );
+        } catch (\Exception $e) {
+            return $this->sendJson500Response($e);
         }
     }
 

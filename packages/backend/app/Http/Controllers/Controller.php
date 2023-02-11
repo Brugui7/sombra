@@ -23,4 +23,13 @@ class Controller extends BaseController
             $status
         );
     }
+
+    protected function sendJson500Response(\Exception $exception): JsonResponse {
+        return $this->sendJsonResponse(
+            false,
+            'An error occurred, please try again later',
+            $exception->getMessage(),
+            500
+        );
+    }
 }

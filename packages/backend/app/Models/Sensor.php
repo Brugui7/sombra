@@ -16,4 +16,8 @@ class Sensor extends Model
         'description',
         'measure_unit'
     ];
+
+    public function element() {
+        return $this->belongsTo(Element::class);
+    }
 }
