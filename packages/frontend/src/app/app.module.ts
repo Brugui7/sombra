@@ -25,6 +25,7 @@ import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CardModule } from 'primeng/card';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { CardModule } from 'primeng/card';
     InputTextareaModule,
     ReactiveFormsModule,
     CardModule,
+    SkeletonModule,
   ],
     declarations: [
         AppComponent,

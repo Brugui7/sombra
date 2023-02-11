@@ -87,6 +87,11 @@ export class ElementPageComponent implements OnInit {
     this.deleteProductDialog = true;
   }
 
+  openSensorsDialog(element: Element) {
+    this.element = element;
+    this.sensorsDialog = true;
+  }
+
   confirmDeleteSelected() {
     this.deleteProductsDialog = false;
     this.elements = this.elements.filter(val => !this.selectedElements.includes(val));
