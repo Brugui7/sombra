@@ -8,6 +8,7 @@ import { MonitoringPageComponent } from './features/monitoring/monitoring-page/m
     RouterModule.forRoot([
         {path: 'elements', component: ElementPageComponent},
         {path: 'monitoring', component: MonitoringPageComponent},
+        { path: 'auth', loadChildren: () => import('./features/auth/login/login.module').then(m => m.LoginModule) },
         //{path: '**', redirectTo: 'pages/notfound'},
       ],
       {scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled'},

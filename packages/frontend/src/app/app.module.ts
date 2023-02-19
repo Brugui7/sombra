@@ -26,6 +26,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CardModule } from 'primeng/card';
 import { SkeletonModule } from 'primeng/skeleton';
+import { LoginModule } from 'src/app/features/auth/login/login.module';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     ReactiveFormsModule,
     CardModule,
     SkeletonModule,
+    LoginModule,
   ],
     declarations: [
         AppComponent,

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SensorController;
@@ -47,6 +48,10 @@ Route::prefix('logs')->controller(LogController::class)->group(function () {
     Route::get('', 'index');
 });
 
+Route::prefix('auth')->controller(AuthController::class)->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/logout', [AuthController::class, 'logOut']);
+});
 
 
 
