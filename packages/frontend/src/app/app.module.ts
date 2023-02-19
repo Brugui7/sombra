@@ -27,6 +27,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CardModule } from 'primeng/card';
 import { SkeletonModule } from 'primeng/skeleton';
 import { LoginModule } from 'src/app/features/auth/login/login.module';
+import { MainLayoutComponent } from './features/main-layout/main-layout.component';
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import { LoginModule } from 'src/app/features/auth/login/login.module';
         AppComponent,
         ElementPageComponent,
         MonitoringPageComponent,
-        SensorsDialogComponent
+        SensorsDialogComponent,
+        MainLayoutComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
