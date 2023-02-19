@@ -5,3 +5,4 @@ export const environment = {
 
 
 // apiUrl: 'https://api.monfab.elcampico.org/api/'
+// apiUrl: 'http://localhost:8000/api/'
