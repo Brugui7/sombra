@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ElementsService } from 'src/app/core/elements/elements.service';
 import { Element } from 'src/app/core/elements/models/element.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { take } from 'rxjs';
 
 interface Product {
   id?: string;
@@ -83,7 +84,8 @@ export class ElementPageComponent implements OnInit {
     this.elementDialog = true;
   }
 
-  deleteElement(product: Element) {
+  deleteElement(element: Element) {
+    this.element = element;
     this.deleteProductDialog = true;
   }
 
@@ -105,15 +107,20 @@ export class ElementPageComponent implements OnInit {
   }
 
   confirmDelete() {
-    this.deleteProductDialog = false;
-    this.products = this.products!.filter(val => val.id !== this.product!.id);
+    if (!this.element) {
+      return;
+    }
+    this.elementsService.delete(this.element).pipe(take(1)).subscribe(response => {
+      this.elements = this.elements.filter(elem => elem.id !== this.element?.id);
+      this.element = null;
+      this.deleteProductDialog = false;
+    });
     /*this.messageService.add({
       severity: 'success',
       summary: 'Successful',
       detail: 'Product Deleted',
       life: 3000,
     });*/
-    this.product = {};
   }
 
   hideDialog() {

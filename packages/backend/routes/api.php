@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SensorController;
+use App\Http\Controllers\SensorTypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ Route::prefix('elements')->controller(ElementController::class)->group(function 
     Route::post('', 'store');
     Route::put('/{id}', 'update');
     Route::get('/{id}', 'getById');
+    Route::delete('/{id}', 'delete');
     Route::get('/{id}/logs', 'getElementLogs');
     Route::get('/{id}/sensors', 'getElementSensors');
 });
@@ -44,6 +46,11 @@ Route::get('/users/{id}/role', [UserController::class, 'getRole']);
 
 Route::prefix('logs')->controller(LogController::class)->group(function () {
     Route::post('', 'store');
+    // Just for testing purposes
+    Route::get('', 'index');
+});
+
+Route::prefix('sensor-types')->controller(SensorTypeController::class)->group(function () {
     // Just for testing purposes
     Route::get('', 'index');
 });

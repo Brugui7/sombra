@@ -5,6 +5,8 @@ import { ElementsService } from 'src/app/core/elements/elements.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SensorsService } from 'src/app/core/sensors/sensors.service';
 import { catchError, EMPTY, take } from 'rxjs';
+import { SensorTypesService } from 'src/app/core/sensor-types/services/sensor-types.service';
+import { SensorType } from 'src/app/core/sensor-types/models/sensor-type.model';
 
 @Component({
   selector: 'app-sensors-dialog',
@@ -24,24 +26,30 @@ export class SensorsDialogComponent implements OnInit {
   ];
 
   public sensors: Sensor[] = [];
+  public sensorTypes: SensorType[] = [];
   public loading = true;
   public sensor?: Sensor;
   public deleteSensorDialog = false;
   public editSensorDialog = false;
   public sensorForm = new FormGroup({
-    name: new FormControl(null, [Validators.required]),
-    code: new FormControl(null, [Validators.required]),
-    description: new FormControl(null, [Validators.required]),
-    measure_unit: new FormControl(null, [Validators.required]),
-  })
+    name: new FormControl(null, [ Validators.required ]),
+    code: new FormControl(null, [ Validators.required ]),
+    description: new FormControl(null, [ Validators.required ]),
+    measure_unit: new FormControl(null, [ Validators.required ]),
+    sensor_type_id: new FormControl(null, [ Validators.required ]),
+  });
 
   constructor(
     private elementsService: ElementsService,
-    private sensorsService: SensorsService
+    private sensorsService: SensorsService,
+    private sensorTypesService: SensorTypesService,
   ) { }
 
   ngOnInit(): void {
-    this.loadSensors()
+    this.loadSensors();
+    this.sensorTypesService.getSensorTypes().pipe(take(1)).subscribe(sensorTypes => {
+      this.sensorTypes = sensorTypes.data;
+    });
   }
 
   private loadSensors(): void {
@@ -52,7 +60,7 @@ export class SensorsDialogComponent implements OnInit {
       response => {
         this.sensors = response.data;
         this.loading = false;
-      }
+      },
     );
   }
 
@@ -70,9 +78,9 @@ export class SensorsDialogComponent implements OnInit {
     this.sensorsService.deleteSensor(this.sensor).pipe(
       take(1),
       catchError((err) => {
-        this.loading = false
+        this.loading = false;
         return EMPTY;
-      })
+      }),
     ).subscribe(res => {
       this.loadSensors();
     });
@@ -103,9 +111,9 @@ export class SensorsDialogComponent implements OnInit {
     .pipe(
       take(1),
       catchError((err) => {
-        this.loading = false
+        this.loading = false;
         return EMPTY;
-      })
+      }),
     )
     .subscribe(res => {
       this.loadSensors();

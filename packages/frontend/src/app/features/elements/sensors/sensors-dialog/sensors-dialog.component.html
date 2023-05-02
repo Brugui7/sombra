@@ -26,9 +26,123 @@
   <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
           (click)="openNew()"
   ></button>
+  <div  *ngIf="editSensorDialog" class="card">
+    <div [formGroup]="sensorForm" class="ui-fluid formgrid grid">
+      <div class="field col">
+        <label for="name">Name</label>
+        <input
+          [ngClass]="{'ng-invalid ng-dirty' : sensorForm.get('name')?.invalid}"
+          formControlName="name"
+          type="text"
+          pInputText
+          id="name"
+          autofocus
+        />
+
+        <small
+          *ngIf="
+                sensorForm.get('name')?.invalid &&
+                 (sensorForm.get('name')?.dirty || sensorForm.get('name')?.touched)
+              "
+          class="ng-dirty ng-invalid"
+        >
+          Name is required.
+        </small>
+      </div>
+      <div class="field col">
+        <label for="name">Code</label>
+        <input
+          [ngClass]="{'ng-invalid ng-dirty' : sensorForm.get('code')?.invalid}"
+          formControlName="code"
+          type="text"
+          pInputText
+          id="code"
+          autofocus
+        />
+
+        <small
+          *ngIf="
+                sensorForm.get('code')?.invalid &&
+                 (sensorForm.get('code')?.dirty || sensorForm.get('code')?.touched)
+              "
+          class="ng-dirty ng-invalid"
+        >
+          Code is required.
+        </small>
+      </div>
+      <div class="field col">
+        <label for="description">Description</label>
+        <textarea
+          [ngClass]="{'ng-invalid ng-dirty' : sensorForm.get('description')?.invalid}"
+          id="description"
+          pInputTextarea
+          formControlName="description"
+          required
+          rows="3"
+          cols="20"
+        ></textarea>
+        <small
+          *ngIf="
+                sensorForm.get('description')?.invalid &&
+                 (sensorForm.get('description')?.dirty || sensorForm.get('description')?.touched)
+              "
+          class="ng-dirty ng-invalid"
+        >
+          Description is required.
+        </small>
+      </div>
+      <div class="field col">
+        <label for="measure_unit">Measure Unit</label>
+        <input
+          [ngClass]="{'ng-invalid ng-dirty' : sensorForm.get('measure_unit')?.invalid}"
+          formControlName="measure_unit"
+          type="text"
+          pInputText
+          id="measure_unit"
+          autofocus
+        />
+
+        <small
+          *ngIf="
+                sensorForm.get('measure_unit')?.invalid &&
+                 (sensorForm.get('measure_unit')?.dirty || sensorForm.get('measure_unit')?.touched)
+              "
+          class="ng-dirty ng-invalid"
+        >
+          Measure unit is required.
+        </small>
+      </div>
+      <div class="field col">
+        <label for="sensor_type">Sensor Type</label>
+        <p-dropdown
+          [ngClass]="{'ng-invalid ng-dirty' : sensorForm.get('sensor_type_id')?.invalid}"
+          [options]="sensorTypes"
+          formControlName="sensor_type_id"
+          id="sensor_type"
+          optionLabel="name"
+          optionValue="id"
+        ></p-dropdown>
+        <small
+          *ngIf="
+                sensorForm.get('sensor_type_id')?.invalid &&
+                 (sensorForm.get('sensor_type_id')?.dirty || sensorForm.get('sensor_type_id')?.touched)
+              "
+          class="ng-dirty ng-invalid"
+        >
+          Sensor Type is required.
+        </small>
+      </div>
+      <div>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                (click)="closeNew()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+                (click)="createSensor()"></button>
+      </div>
+    </div>
+  </div>
   <div class="clearfix"></div>
   <!-- <p-toast></p-toast> -->
-   <p-table #dt [value]="sensors" [columns]="cols" responsiveLayout="scroll"
+  <p-table #dt [value]="sensors" [columns]="cols" responsiveLayout="scroll"
            [globalFilterFields]="['name']"
            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            selectionMode="multiple"
@@ -94,9 +208,11 @@
       </tr>
     </ng-template>
   </p-table>
+
+
 </div>
 
-<!-- Create Sensor -->
+<!-- Create Sensor --
 <p-dialog
   [(visible)]="editSensorDialog"
   [style]="{width: '450px'}"
@@ -173,7 +289,7 @@
       </div>
 
       <div class="field">
-        <label for="name">Measure Unit</label>
+        <label for="measure_unit">Measure Unit</label>
         <input
           [ngClass]="{'ng-invalid ng-dirty' : sensorForm.get('measure_unit')?.invalid}"
           formControlName="measure_unit"
@@ -194,6 +310,26 @@
         </small>
       </div>
 
+      <div class="field">
+        <label for="sensor_type">Sensor Type</label>
+        <p-dropdown
+          [ngClass]="{'ng-invalid ng-dirty' : sensorForm.get('sensor_type')?.invalid}"
+          [options]="sensorTypes"
+          formControlName="sensor_type"
+          id="sensor_type"
+          optionLabel="name"
+        ></p-dropdown>
+        <small
+          *ngIf="
+                sensorForm.get('sensor_type')?.invalid &&
+                 (sensorForm.get('sensor_type')?.dirty || sensorForm.get('sensor_type')?.touched)
+              "
+          class="ng-dirty ng-invalid"
+        >
+          Sensor Type is required.
+        </small>
+      </div>
+
     </div>
   </ng-template>
 
@@ -205,7 +341,7 @@
   </ng-template>
 </p-dialog>
 
-
+-->
 <!-- Delete Sensor -->
 
 <p-dialog [(visible)]="deleteSensorDialog" header="Confirm" [modal]="true"

@@ -12,6 +12,7 @@ class Sensor extends Model
     protected $fillable = [
         'name',
         'element_id',
+        'sensor_type_id',
         'code',
         'description',
         'measure_unit'
@@ -19,5 +20,9 @@ class Sensor extends Model
 
     public function element() {
         return $this->belongsTo(Element::class);
+    }
+
+    public function type() {
+        return $this->hasOne(SensorType::class);
     }
 }

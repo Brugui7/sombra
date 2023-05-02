@@ -6,6 +6,7 @@ use App\Models\Element;
 use App\Models\Sensor;
 use App\Http\Requests\StoreSensorRequest;
 use App\Http\Requests\UpdateSensorRequest;
+use App\Models\SensorType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -24,16 +25,6 @@ class SensorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param StoreSensorRequest $request
@@ -46,14 +37,20 @@ class SensorController extends Controller
             'description' => 'required|string',
             'code' => 'required|string',
             'measure_unit' => 'required|string',
-            'element_id' => 'required|numeric|integer'
+            'element_id' => 'required|numeric|integer',
+            'sensor_type_id' => 'required|numeric|integer'
         ]);
 
         try {
             $element = Element::find($data['element_id']);
+            $sensorType = SensorType::find($data['sensor_type_id']);
 
             if (!$element) {
                 return $this->sendJsonResponse(false, 'Could not find element with given id', null, 422);
+            }
+
+            if (!$sensorType) {
+                return $this->sendJsonResponse(false, 'Could not find a sensor type with given id', null, 422);
             }
 
             $sensor = Sensor::create($data);

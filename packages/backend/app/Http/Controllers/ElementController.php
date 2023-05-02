@@ -26,6 +26,18 @@ class ElementController extends Controller
         return $this->sendJsonResponse(true, '', $element);
     }
 
+    public function delete(Request $request, $id)
+    {
+        $element = Element::find($id);
+
+        if (!$element) {
+            return response(null, 404);
+        }
+
+        $element->delete();
+        return $this->sendJsonResponse(true, 'Elemento borrado correctamente', null);
+    }
+
     public function getElementLogs(Request $request, $id)
     {
         $element = Element::find($id);
@@ -38,11 +50,11 @@ class ElementController extends Controller
     public function store(Request $request)
     {
         try {
-           Element::create(
-               $request->validate([
-                   'name' => 'required|string',
-                   'description' => 'required'
-               ])
+            Element::create(
+                $request->validate([
+                    'name' => 'required|string',
+                    'description' => 'required'
+                ])
             );
             return $this->sendJsonResponse(true, 'Element created successfully', null, 201);
         } catch (\Exception $e) {
@@ -58,11 +70,11 @@ class ElementController extends Controller
             return response(null, 404);
         }
         try {
-           $element->update(
-               $request->validate([
-                   'name' => 'required|string',
-                   'description' => 'required|string'
-               ])
+            $element->update(
+                $request->validate([
+                    'name' => 'required|string',
+                    'description' => 'required|string'
+                ])
             );
             return $this->sendJsonResponse(true, 'Element updated successfully', null, 201);
         } catch (\Exception $e) {
@@ -70,7 +82,8 @@ class ElementController extends Controller
         }
     }
 
-    public function getElementSensors(Request $request, $id) {
+    public function getElementSensors(Request $request, $id)
+    {
         $element = Element::find($id);
 
         if (!$element) {

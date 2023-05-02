@@ -37,6 +37,11 @@ export class ElementsService {
       element
     );
   }
+  public delete(element: Element): Observable<JsonApiResponse<null>> {
+    return this.http.delete<JsonApiResponse<null>>(
+      `${this.endpoint}/${element.id}`
+    );
+  }
 
   public getSensorsByElement(element: Element): Observable<JsonApiResponse<Sensor[]>> {
     return this.http.get<JsonApiResponse<Sensor[]>>(
