@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Element;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Models\log;
+use App\Models\Log;
 use JSONException;
 
 class LogController extends Controller
